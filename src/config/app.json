@@ -1,0 +1,8 @@
+{
+  "port" : 3000,
+  "mongodb" : {
+    "url" : "localhost",
+    "dbPort" : "27017",
+    "dbName" : "passportpg"
+  }
+}

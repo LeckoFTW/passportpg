@@ -4,27 +4,13 @@
 
 'use strict';
 
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-const passport = require('./src/controller/PassportController');
+/* Require dependencies */
+const app = require('./src/app');
+const {port} = require('./src/config/app');
 
-mongoose.createConnection('mongodb://localhost/passportpg', err =>{
+app.listen(port, err => {
     if(err) console.log(err);
-    else console.log('Database connection success!!');
+    else console.log(`Server started on port ${port}`);
 });
 
-
-app.use(morgan('combined'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended : false}));
-passport.configureBasicStrategy();
-
-app.listen(3000, err => {
-    if(err) console.log(err);
-    else console.log('server!!');
-});
-
-
+module.exports = app;

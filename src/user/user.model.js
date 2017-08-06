@@ -14,7 +14,7 @@ let userSchema = new mongoose.Schema({
     email: {type: String, required: true, unique: true}
 });
 
-userSchema.pre('save', done => {
+userSchema.pre('save', function(done){
     let user = this;
     if(!user.isModified('password')) return done();
     bcrypt.hash(user.password, 10).then(hash => {
@@ -23,6 +23,8 @@ userSchema.pre('save', done => {
     }).catch(err => done(err));
 });
 
-userSchema.methods.validatePassword = password => bcrypt.compare(password, this.password);
+userSchema.methods.validatePassword = function (password) {
+    return bcrypt.compare(password, this.password);
+};
 
 module.exports = mongoose.model('User', userSchema);
